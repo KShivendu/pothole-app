@@ -136,8 +136,10 @@ android {
     defaultConfig {
         applicationId "com.potholeapp"
         minSdkVersion rootProject.ext.minSdkVersion
+         missingDimensionStrategy 'react-native-camera', 'general'
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
+        multiDexEnabled true
         versionName "1.0"
     }
     splits {
