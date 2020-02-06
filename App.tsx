@@ -1,4 +1,4 @@
-mport React from 'react';
+import React from 'react';
 import { SafeAreaView, Text, StatusBar, StyleSheet } from 'react-native';
 import { Appbar, FAB } from 'react-native-paper';
 
