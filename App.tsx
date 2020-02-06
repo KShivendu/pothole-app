@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { SafeAreaView, Text, StatusBar } from 'react-native';
+import Signin from './components/Signin';
+import auth from './fbinit';
 
-const App = () => {
-	return (
-		<>
-			<StatusBar barStyle="light-content" />
-			<SafeAreaView>
-				<Text>App works!</Text>
-			</SafeAreaView>
-		</>
-	);
-};
+export default class App extends Component {
+	render() {
 
-export default App;
+		if (isusersignedin()) {
+			return <Text>Handle it</Text>
+		}
+		else {
+			return (<Signin />);
+		}
+
+	}
+}
+
+function isusersignedin() {
+	var user = auth.currentUser;
+
+	if (user) {
+		return true;
+	} else {
+		return false;
+	}
+}
