@@ -24,21 +24,10 @@ export default class App extends Component {
 		this.setState( (state)=>{ {loggedin:isusersignedin()} });
 	}
 	render() {
-<<<<<<< HEAD
 		if (this.state.loggedin==true) return <Main />;
 		else {
 			return <Signin callback={this.userloggedin} />;
 		}
-=======
-		return (
-			<NavigationContainer>
-				<Stack.Navigator headerMode="none">
-					<Stack.Screen name="Home" component={Main} />
-					<Stack.Screen name="SignIn" component={Signin} />
-				</Stack.Navigator>
-			</NavigationContainer>
-		);
->>>>>>> bbc2c8597558fb775125fdbd9af3447d331fbdbb
 	}
 }
 
