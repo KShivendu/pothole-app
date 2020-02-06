@@ -3,12 +3,24 @@ import { SafeAreaView, Text, StatusBar, StyleSheet } from 'react-native';
 import { Appbar, FAB } from 'react-native-paper';
 import Main from './components/Main';
 import Signin from './components/Signin';
+import firebase from 'react-native-firebase';
 
 export default class App extends Component {
+	state={isusersignedin:false}
+	componentDidMount()
+	{
+	
+		this.setState( (state)=>{ {loggedin:isusersignedin()} });
+	}
+
+	userloggedin()
+	{
+		this.setState( (state)=>{ {loggedin:isusersignedin()} });
+	}
 	render() {
-		if (isusersignedin()) return <Main />;
+		if (this.state.loggedin==true) return <Main />;
 		else {
-			return <Signin />;
+			return <Signin callback={this.userloggedin} />;
 		}
 	}
 }
@@ -24,6 +36,14 @@ const styles = StyleSheet.create({
 });
 
 function isusersignedin() {
-	return false;
+	var user=firebase.auth().currentUser;
+	if(user)
+	{
+		return true;
+	}
+	else{
+		return false;
+	}
+	
 }
 //export default App;
