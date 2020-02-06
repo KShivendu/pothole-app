@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- Materialize CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+
+    <body>
+
+        <form class="login-card z-depth-1" id="formm"  action="" onsubmit="return false;">
+            <h2>Sign in</h2>
+            Use Your LDAP Account
+            <div class="input-field">
+                <input id="username" type="text" class="validate" autofocus name="ldap">
+                <label for="username">Username</label>
+            </div>
+            <div class="input-field">
+                <input id="password" type="password" class="validate" name="pwd">
+                <label for="password">Password</label>
+            </div>
+            <div>
+                <button class="btn z-depth-0 blue waves-effect waves-light" onClick="submitform()" id="subbutton">Submit
+
+                </button>
+                <div class="preloader-wrapper big active" id="loading" style="display:none">
+                    <div class="spinner-layer spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row" style="text-align: center;">
+                <span id="fb" style="font-size:155%"></span>
+            </div>
+        </div>
+    </form>
+
+    <!-- java script here-->
+
+    
+
+    <script>
+
+        function submitform(event)
+        {
+            //event.preventDefault();
+
+
+            $('#subbutton').hide();
+            $('#loading').show();
+
+            var form = $("#formm");
+
+            var formdata = new FormData(form[0]);
+            $.ajax(
+                    {
+                        type: 'POST',
+                        url: 'loginurl',
+                        enctype: 'multipart/form-data',
+                        data: formdata,
+                        processData: false,
+                        contentType: false,
+                        dataType: 'json',
+                        encode: true,
+                        success: (data) => {
+                            // $('#loading').hide();
+
+
+                            if (data.status == 1)
+                            {
+                                window.location.href = "timeline.php";
+
+                            } else
+                            {
+                                $('#loading').hide();
+                                $('#subbutton').show();
+                                $('#fb').css("color", "red");
+                                $('#fb').text("Wrong username and password");
+                            }
+                        },
+                        error: (xhr, status, error) => {
+                            $('#fb').css("color", "red");
+                            $('#fb').text("Some error occured,please try again after some time");
+                            $('#loading').hide();
+                            $('#subbutton').show();
+                        }
+                    }
+            )
+
+        }
+
+    </script>
+
+</body>
+
+</html>
