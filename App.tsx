@@ -1,9 +1,15 @@
+import 'react-native-gesture-handler';
+
 import React, { Component } from 'react';
-import { SafeAreaView, Text, StatusBar, StyleSheet } from 'react-native';
-import { Appbar, FAB } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import Main from './components/Main';
 import Signin from './components/Signin';
 import firebase from 'react-native-firebase';
+
+const Stack = createStackNavigator();
 
 export default class App extends Component {
 	state={isusersignedin:false}
@@ -18,10 +24,21 @@ export default class App extends Component {
 		this.setState( (state)=>{ {loggedin:isusersignedin()} });
 	}
 	render() {
+<<<<<<< HEAD
 		if (this.state.loggedin==true) return <Main />;
 		else {
 			return <Signin callback={this.userloggedin} />;
 		}
+=======
+		return (
+			<NavigationContainer>
+				<Stack.Navigator headerMode="none">
+					<Stack.Screen name="Home" component={Main} />
+					<Stack.Screen name="SignIn" component={Signin} />
+				</Stack.Navigator>
+			</NavigationContainer>
+		);
+>>>>>>> bbc2c8597558fb775125fdbd9af3447d331fbdbb
 	}
 }
 
