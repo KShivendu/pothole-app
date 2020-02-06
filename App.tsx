@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView, Text, StatusBar, StyleSheet } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Appbar, FAB } from 'react-native-paper';
 
 const App = () => {
 	return (
@@ -15,8 +15,19 @@ const App = () => {
 			<SafeAreaView>
 				<Text>App works!</Text>
 			</SafeAreaView>
+			<FAB style={styles.fab} label="New" icon="plus" onPress={() => console.log('Pressed plus')} />
 		</>
 	);
 };
+
+const styles = StyleSheet.create({
+	fab: {
+		position: 'absolute',
+		margin: 16,
+		alignSelf: 'center',
+		backgroundColor: 'red',
+		bottom: 0,
+	},
+});
 
 export default App;
