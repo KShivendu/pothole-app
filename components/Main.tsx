@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Text, StatusBar, StyleSheet } from 'react-native';
 import { Appbar, FAB } from 'react-native-paper';
+import { NavigationProp } from '@react-navigation/native';
 
 export default class Main extends Component {
+	navigation: NavigationProp<any>;
+
+	constructor(props: any) {
+		super(props);
+		this.navigation = props.navigation;
+	}
+
 	render() {
 		return (
 			<>
@@ -16,7 +24,12 @@ export default class Main extends Component {
 				<SafeAreaView>
 					<Text>App works!</Text>
 				</SafeAreaView>
-				<FAB style={styles.fab} label="New" icon="plus" onPress={() => console.log('Pressed plus')} />
+				<FAB
+					style={styles.fab}
+					label="New"
+					icon="plus"
+					onPress={() => this.navigation.navigate('SignIn')}
+				/>
 			</>
 		);
 	}
