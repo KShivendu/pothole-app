@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native';
-import { List, TextInput, FAB } from 'react-native-paper';
+import { List, TextInput, FAB, Snackbar } from 'react-native-paper';
 
 interface StateType {
 	selectedCategory: string;
 	landmark: string;
 	fabTop: number;
+	lev:number
 }
 
 let screenHeight: number;
@@ -21,10 +22,12 @@ export default class Camera extends Component {
 			selectedCategory: props.route.params.category,
 			landmark: '',
 			fabTop: screenHeight - 120,
+			lev:0
 		};
 	}
 
 	submitForm = () => {
+		this.setState({lev:1});
 		let location: any = this.props.route.params.location;
 		let landmark = this.state.landmark;
 
@@ -49,9 +52,14 @@ export default class Camera extends Component {
 			.then(res => {
 				// console.log()
 				if (JSON.parse(res)['status'] === 1) {
+					this.setState({lev:2,status:"Submitted Succesfully"});
 					console.log('Successfully Added !!!');
-				} else {
+				} else if(JSON.parse(res)['status'] === -1) {
+					this.setState({lev:2,status:"Spam detected(Not on Road)"})
 					console.log('Something went wrong !!!');
+				}
+				else{
+					this.setState({lev:2,status:"Error Occured"})
 				}
 			});
 	};
@@ -119,8 +127,10 @@ export default class Camera extends Component {
 					style={{ ...styles.fab, top: this.state.fabTop }}
 					label="Send"
 					icon="send"
+					loading={(this.state.lev==1)?true:false}
 					onPress={this.submitForm}
 				/>
+				<Snackbar visible={(this.state.lev==2)?true:false} onDismiss={()=>this.setState({lev:0})}>{this.state.status}</Snackbar>
 			</>
 		);
 	}
