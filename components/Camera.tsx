@@ -16,6 +16,12 @@ export default class Camera extends Component {
 		super(props);
 		this.state = {lev: 0};
 	}
+	componentWillMount()
+	{
+		console.log("Unmounted");
+		this.state = {lev: 0};
+
+	}
 	sendtoserver(location, data) {
 		console.log('Sending Data to ML Model');
 		// console.log(this.data.base64);
@@ -33,6 +39,7 @@ export default class Camera extends Component {
 				console.log(res);
 				let detectedClass = JSON.parse(res)['class'];
 				if (detectedClass === "potholes"){
+					this.setState({lev:0});
 					this.props.navigation.navigate('Form', {
 						category: "potholes",
 						location: `${location[0].latitude}, ${location[0].longitude}`,
