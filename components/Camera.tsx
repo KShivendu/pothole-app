@@ -5,7 +5,7 @@ import {NavigationProp} from '@react-navigation/native';
 import {RNCamera} from 'react-native-camera';
 import {Provider as PaperProvider, Button} from 'react-native-paper';
 import RNLocation from 'react-native-location';
-import {Image} from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
+import { Image } from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
 
 export default class Camera extends Component {
 	data = {};
@@ -13,7 +13,7 @@ export default class Camera extends Component {
 	state: any;
 	constructor(props: any) {
 		super(props);
-		this.state = {lev: 0};
+		this.state = { lev: 0 };
 	}
 	sendtoserver(location, data) {
 		//
@@ -37,15 +37,14 @@ export default class Camera extends Component {
 			},
 		}).then(granted => {
 			if (granted) {
-				this.locationSubscription = RNLocation.subscribeToLocationUpdates(
-					locations => {
-						console.log(locations);
-						if (this.data) {
-							//console.log(this.data);
-							this.sendtoserver(locations, this.data);
-						}
+				this.locationSubscription = RNLocation.subscribeToLocationUpdates(locations => {
+					console.log(locations);
+					if (this.data) {
+						//console.log(this.data);
+						this.sendtoserver(locations, this.data);
+					}
 
-						/* Example location returned
+					/* Example location returned
                   {
                     speed: -1,
                     longitude: -0.1337,
@@ -75,7 +74,8 @@ export default class Camera extends Component {
 						style={{
 							flex: 1,
 							width: '100%',
-						}}>
+						}}
+					>
 						<FAB
 							style={styles.fab}
 							icon="camera"

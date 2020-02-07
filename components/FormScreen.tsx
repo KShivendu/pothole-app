@@ -2,7 +2,37 @@ import React, { Component } from 'react';
 import { Image, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { List, TextInput, FAB } from 'react-native-paper';
 
+interface StateType {
+	selectedCategory: string;
+	landmark: string;
+}
+
 export default class Camera extends Component {
+	props!: any;
+	state: StateType;
+
+	constructor(props: any) {
+		super(props);
+		this.state = {
+			selectedCategory: props.route.params.category,
+			landmark: '',
+		};
+	}
+
+	setCategory(category: string) {
+		this.setState(prevState => ({
+			...prevState,
+			selectedCategory: category,
+		}));
+	}
+
+	inputController = (text: string) => {
+		this.setState(prevState => ({
+			...prevState,
+			landmark: text,
+		}));
+	};
+
 	render() {
 		return (
 			<>
@@ -13,17 +43,39 @@ export default class Camera extends Component {
 							uri: 'https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg',
 						}}
 					/>
-					<List.Section title="Category">
+					<List.Section>
 						<List.Accordion
-							title="<Detected Category Name>"
-							left={props => <List.Icon {...props} icon="folder" />}
+							title={this.state.selectedCategory}
+							left={() => <List.Icon icon="folder" />}
 						>
-							<List.Item onPress={() => {}} title="Pothole" />
-							<List.Item onPress={() => {}} title="Street Light" />
+							<List.Item
+								onPress={() => {
+									this.setCategory('Pothole');
+								}}
+								title="Pothole"
+							/>
+							<List.Item
+								onPress={() => {
+									this.setCategory('Street Light');
+								}}
+								title="Street Light"
+							/>
 						</List.Accordion>
 					</List.Section>
-					<TextInput mode="outlined" label="Location" style={styles.disabledInput} disabled />
-					<TextInput mode="outlined" label="Landmark" style={styles.disabledInput} />
+					<TextInput
+						mode="outlined"
+						label="Location"
+						defaultValue={this.props.location}
+						style={styles.disabledInput}
+						disabled
+					/>
+					<TextInput
+						mode="outlined"
+						defaultValue={this.state.landmark}
+						onChangeText={this.inputController}
+						label="Landmark"
+						style={styles.disabledInput}
+					/>
 				</KeyboardAvoidingView>
 
 				<FAB style={styles.fab} label="Send" icon="send" onPress={() => {}} />

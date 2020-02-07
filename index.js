@@ -4,6 +4,7 @@ import { AppRegistry } from 'react-native';
 import App from './App';
 import CameraScreen from './components/Camera';
 import FormScreen from './components/FormScreen';
+import MainScreen from './components/Main';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { name as appName } from './app.json';
 import { NavigationContainer } from '@react-navigation/native';
