@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, StatusBar, StyleSheet } from 'react-native';
-import { Appbar, FAB, Button } from 'react-native-paper';
+import { SafeAreaView, StyleSheet, View, Text, Image } from 'react-native';
+import { FAB, Appbar, Colors } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
+import LabeledIconButton from './LabeledIconButton';
 
 export default class Main extends Component {
 	navigation: NavigationProp<any>;
@@ -18,7 +19,18 @@ export default class Main extends Component {
 		return (
 			<>
 				<SafeAreaView>
-					<Text>App works!</Text>
+					<Appbar>
+						<Text style={{ ...styles.appBarText, flex: 1 }}>City Rank: 1000</Text>
+						<Text style={styles.appBarText}>Points: 30</Text>
+					</Appbar>
+					<Image style={styles.imageStyle} source={require('../images/pothole.jpg')} />
+					<View style={styles.iconContainer}>
+						<LabeledIconButton label="My Complaints" icon="view-list" />
+						<LabeledIconButton label="Statistics" icon="chart-line-variant" />
+						<LabeledIconButton label="Redeem" icon="bank-transfer-out" />
+						<LabeledIconButton label="Heatmap" icon="map" />
+						<LabeledIconButton label="Invite" icon="account-multiple-plus" />
+					</View>
 				</SafeAreaView>
 				<FAB
 					style={styles.fab}
@@ -38,6 +50,19 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		backgroundColor: '#6200ee',
 		bottom: 0,
+	},
+	iconContainer: {
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		justifyContent: 'space-around',
+	},
+	appBarText: {
+		color: Colors.white,
+		fontSize: 18,
+		padding: 4,
+	},
+	imageStyle: {
+		width: '100%',
 	},
 });
 

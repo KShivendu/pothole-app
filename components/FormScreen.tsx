@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { Image, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { Image, View, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native';
 import { List, TextInput, FAB } from 'react-native-paper';
 
 interface StateType {
 	selectedCategory: string;
 	landmark: string;
+	fabTop: number;
 }
+
+let screenHeight: number;
 
 export default class Camera extends Component {
 	props!: any;
@@ -13,9 +16,11 @@ export default class Camera extends Component {
 
 	constructor(props: any) {
 		super(props);
+		screenHeight = Math.round(Dimensions.get('window').height);
 		this.state = {
 			selectedCategory: props.route.params.category,
 			landmark: '',
+			fabTop: screenHeight - 120,
 		};
 	}
 
@@ -78,7 +83,12 @@ export default class Camera extends Component {
 					/>
 				</KeyboardAvoidingView>
 
-				<FAB style={styles.fab} label="Send" icon="send" onPress={() => {}} />
+				<FAB
+					style={{ ...styles.fab, top: this.state.fabTop }}
+					label="Send"
+					icon="send"
+					onPress={() => {}}
+				/>
 			</>
 		);
 	}
@@ -97,6 +107,5 @@ const styles = StyleSheet.create({
 		margin: 16,
 		alignSelf: 'center',
 		backgroundColor: '#6200ee',
-		bottom: 0,
 	},
 });
