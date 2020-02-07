@@ -28,7 +28,7 @@ export default class Main extends Component {
 					style={styles.fab}
 					label="New"
 					icon="plus"
-					onPress={() => this.navigation.navigate('SignIn')}
+					onPress={() => this.navigation.navigate('Camera')}
 				/>
 			</>
 		);
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		margin: 16,
 		alignSelf: 'center',
-		backgroundColor: 'red',
+		backgroundColor: '#6200ee',
 		bottom: 0,
 	},
 });
