@@ -2,24 +2,19 @@ import React, { Component } from 'react';
 import { Image, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { List, TextInput, FAB } from 'react-native-paper';
 
-interface PropType {
-	category: string;
-	location: string;
-}
-
 interface StateType {
 	selectedCategory: string;
 	landmark: string;
 }
 
 export default class Camera extends Component {
-	props!: PropType;
+	props!: any;
 	state: StateType;
 
-	constructor(props: PropType) {
+	constructor(props: any) {
 		super(props);
 		this.state = {
-			selectedCategory: props.category,
+			selectedCategory: props.route.params.category,
 			landmark: '',
 		};
 	}
