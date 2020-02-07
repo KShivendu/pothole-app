@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {SafeAreaView, Text, StatusBar, StyleSheet} from 'react-native';
-import {Appbar, FAB} from 'react-native-paper';
-import {NavigationProp} from '@react-navigation/native';
-import {RNCamera} from 'react-native-camera';
-import {Provider as PaperProvider, Button} from 'react-native-paper';
+import React, { Component } from 'react';
+import { SafeAreaView, Text, StatusBar, StyleSheet } from 'react-native';
+import { Appbar, FAB } from 'react-native-paper';
+import { NavigationProp } from '@react-navigation/native';
+import { RNCamera } from 'react-native-camera';
+import { Provider as PaperProvider, Button } from 'react-native-paper';
 import RNLocation from 'react-native-location';
 import {Image} from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
 
@@ -59,8 +59,7 @@ export default class Camera extends Component {
                     fromMockProvider: false
                   }
                   */
-					},
-				);
+				});
 			}
 		});
 	};
