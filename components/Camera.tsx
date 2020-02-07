@@ -23,7 +23,7 @@ export default class Camera extends Component {
 		fetch('http://10.3.7.86:5000/crossapi', {
 			method: 'POST',
 			headers: {
-				Accept: 'application/json',
+				'Accept': 'application/json',
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({encodedImage: this.data.base64}),
@@ -62,6 +62,7 @@ export default class Camera extends Component {
 		}
 	}
 	findCoordinates = () => {
+		console.log("Finding Coord")
 		RNLocation.requestPermission({
 			ios: 'whenInUse',
 			android: {
@@ -69,6 +70,7 @@ export default class Camera extends Component {
 			},
 		}).then(granted => {
 			if (granted) {
+				console.log("Loc Permission Granted")
 				this.locationSubscription = RNLocation.subscribeToLocationUpdates(
 					locations => {
 						console.log('loc', locations);
@@ -93,6 +95,9 @@ export default class Camera extends Component {
                   */
 					},
 				);
+			}
+			else{
+				console.log("GPS isn't working")
 			}
 		});
 	};
