@@ -25,7 +25,9 @@ export default class Main extends Component {
 					</Appbar>
 					<Image style={styles.imageStyle} source={require('../images/pothole.jpg')} />
 					<View style={styles.iconContainer}>
-						<LabeledIconButton label="My Complaints" icon="view-list" />
+						<LabeledIconButton label="My Complaints" onPress={()=>{
+							this.navigation.navigate('MyComplaints')
+						}} icon="view-list" />
 						<LabeledIconButton label="Statistics" icon="chart-line-variant" />
 						<LabeledIconButton label="Redeem" icon="bank-transfer-out" />
 						<LabeledIconButton label="Heatmap" icon="map" />

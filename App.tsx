@@ -9,6 +9,7 @@ import Main from './components/Main';
 import Signin from './components/Signin';
 import firebase from 'react-native-firebase';
 import Camera from './components/Camera';
+import Mycomp from './components/Mycomp';
 
 export default class App extends Component {
 	state = { isusersignedin: false };
@@ -46,6 +47,7 @@ export default class App extends Component {
 		else {
 			return <Signin callback={this.userloggedin} />;
 		}
+		// return <Mycomp/>
 	}
 }
 

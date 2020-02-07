@@ -4,6 +4,7 @@ import { AppRegistry } from 'react-native';
 import App from './App';
 import CameraScreen from './components/Camera';
 import FormScreen from './components/FormScreen';
+import MyComplaints from './components/Mycomp';
 import MainScreen from './components/Main';
 import { Provider as PaperProvider, DefaultTheme, Colors } from 'react-native-paper';
 import { name as appName } from './app.json';
@@ -20,6 +21,7 @@ export default function Main() {
 					<Stack.Screen name="Home" component={App} />
 					<Stack.Screen name="Camera" component={CameraScreen} />
 					<Stack.Screen name="Form" component={FormScreen} />
+					<Stack.Screen name="MyComplaints" component={MyComplaints} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</PaperProvider>
