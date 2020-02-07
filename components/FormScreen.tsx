@@ -1,6 +1,11 @@
-import React, { Component } from 'react';
-import { Image, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native';
-import { List, TextInput, FAB } from 'react-native-paper';
+import React, {Component} from 'react';
+import {
+	Image,
+	StyleSheet,
+	KeyboardAvoidingView,
+	Dimensions,
+} from 'react-native';
+import {List, TextInput, FAB} from 'react-native-paper';
 
 interface StateType {
 	selectedCategory: string;
@@ -29,8 +34,9 @@ export default class Camera extends Component {
 		let landmark = this.state.landmark;
 
 		location = location.split(', ');
-
-		fetch('http://10.3.7.86:5500/post-complaints', {
+		// 10.3.7.86 - Shivendu
+		// 10.3.57.255 - Siram
+		fetch('http://10.3.57.255:5500/post-complaints', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -77,14 +83,14 @@ export default class Camera extends Component {
 					<Image
 						style={styles.image}
 						source={{
-							uri: 'data:image/png;base64,' + this.props.route.params.imageString,
+							uri:
+								'data:image/png;base64,' + this.props.route.params.imageString,
 						}}
 					/>
 					<List.Section>
 						<List.Accordion
 							title={this.state.selectedCategory}
-							left={() => <List.Icon icon="folder" />}
-						>
+							left={() => <List.Icon icon="folder" />}>
 							<List.Item
 								onPress={() => {
 									this.setCategory('Pothole');
@@ -116,7 +122,7 @@ export default class Camera extends Component {
 				</KeyboardAvoidingView>
 
 				<FAB
-					style={{ ...styles.fab, top: this.state.fabTop }}
+					style={{...styles.fab, top: this.state.fabTop}}
 					label="Send"
 					icon="send"
 					onPress={this.submitForm}
