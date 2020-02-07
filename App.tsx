@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Main from './components/Main';
 import Signin from './components/Signin';
 import firebase from 'react-native-firebase';
+import Camera from './components/Camera';
 
 export default class App extends Component {
 	state = { isusersignedin: false };
@@ -40,11 +41,13 @@ export default class App extends Component {
 		this.setState({ loggedin: isusersignedin() });
 		console.log(this.state);
 	}
-	render() {
+	render() {/*
 		if (this.state.loggedin == true) return <Main user={getuser()} />;
 		else {
 			return <Signin callback={this.userloggedin} />;
-		}
+			
+		}*/
+		return(<Camera/>);
 	}
 }
 

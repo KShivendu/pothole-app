@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { SafeAreaView, Text, StatusBar, StyleSheet, View } from 'react-native';
+import { Appbar, FAB } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
 import { RNCamera } from 'react-native-camera';
 import { Provider as PaperProvider, Button } from 'react-native-paper';
@@ -90,7 +90,11 @@ export default class Camera extends Component {
 				</PaperProvider>
 			);
 		} else {
-			return <Image source={this.data}></Image>;
+			return (
+				<Button loading={true} style={{ flex: 1, justifyContent: 'center', height: 60 }}>
+					{' '}
+				</Button>
+			);
 		}
 	}
 }
