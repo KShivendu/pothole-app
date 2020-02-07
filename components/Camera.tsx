@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, StatusBar, StyleSheet } from 'react-native';
-import { Appbar, FAB } from 'react-native-paper';
+import { Image, StyleSheet } from 'react-native';
+import { FAB } from 'react-native-paper';
 import { NavigationProp } from '@react-navigation/native';
 import { RNCamera } from 'react-native-camera';
 import { Provider as PaperProvider, Button } from 'react-native-paper';
 import RNLocation from 'react-native-location';
-import { Image } from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
 
 export default class Camera extends Component {
 	data = {};
@@ -16,7 +15,11 @@ export default class Camera extends Component {
 		this.state = { lev: 0 };
 	}
 	sendtoserver(location, data) {
-		//
+		this.props.navigation.navigate('Form', {
+			category: 'Pothole',
+			location: `${location[0].latitude}, ${location[0].longitude}`,
+			imageString: this.data.base64,
+		});
 	}
 
 	async clickphoto() {
@@ -24,7 +27,8 @@ export default class Camera extends Component {
 			this.data = await this.camera.takePictureAsync({ base64: true });
 			this.setState({ lev: 1 });
 			// console.log('base64: ', data.base64);
-			this.findCoordinates();
+			let location = this.findCoordinates();
+
 			//this.state={transition:false}
 			//this.props.action.sendImageToServer(data.base64);
 		}
@@ -33,12 +37,12 @@ export default class Camera extends Component {
 		RNLocation.requestPermission({
 			ios: 'whenInUse',
 			android: {
-				detail: 'coarse',
+				detail: 'fine',
 			},
 		}).then(granted => {
 			if (granted) {
 				this.locationSubscription = RNLocation.subscribeToLocationUpdates(locations => {
-					console.log(locations);
+					console.log('loc', locations);
 					if (this.data) {
 						//console.log(this.data);
 						this.sendtoserver(locations, this.data);

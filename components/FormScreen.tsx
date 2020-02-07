@@ -40,7 +40,7 @@ export default class Camera extends Component {
 					<Image
 						style={styles.image}
 						source={{
-							uri: 'https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__340.jpg',
+							uri: 'data:image/png;base64,' + this.props.route.params.imageString,
 						}}
 					/>
 					<List.Section>
@@ -65,7 +65,7 @@ export default class Camera extends Component {
 					<TextInput
 						mode="outlined"
 						label="Location"
-						defaultValue={this.props.location}
+						defaultValue={this.props.route.params.location}
 						style={styles.disabledInput}
 						disabled
 					/>
