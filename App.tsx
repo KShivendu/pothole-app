@@ -41,13 +41,11 @@ export default class App extends Component {
 		this.setState({ loggedin: isusersignedin() });
 		console.log(this.state);
 	}
-	render() {/*
-		if (this.state.loggedin == true) return <Main user={getuser()} />;
+	render() {
+		if (this.state.loggedin == true) return <Main navigation={this.props.navigation} user={getuser()} />;
 		else {
 			return <Signin callback={this.userloggedin} />;
-			
-		}*/
-		return(<Camera/>);
+		}
 	}
 }
 
