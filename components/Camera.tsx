@@ -5,10 +5,16 @@ import { NavigationProp } from '@react-navigation/native';
 import { RNCamera } from 'react-native-camera';
 import { Provider as PaperProvider, Button } from 'react-native-paper';
 import RNLocation from 'react-native-location';
+import { Image } from 'react-native-paper/lib/typescript/src/components/Avatar/Avatar';
 
 export default class Camera extends Component {
 	data = {};
 	loc = {};
+	state: any;
+	constructor(props: any) {
+		super(props);
+		this.state = { lev: 0 };
+	}
 	sendtoserver(location, data) {
 		//
 	}
@@ -16,8 +22,10 @@ export default class Camera extends Component {
 	async clickphoto() {
 		if (this.camera) {
 			this.data = await this.camera.takePictureAsync({ base64: true });
-			// console.log('base64: ', this.data.base64);
+			this.setState({ lev: 1 });
+			// console.log('base64: ', data.base64);
 			this.findCoordinates();
+			//this.state={transition:false}
 			//this.props.action.sendImageToServer(data.base64);
 		}
 	}
@@ -32,8 +40,10 @@ export default class Camera extends Component {
 				this.locationSubscription = RNLocation.subscribeToLocationUpdates(locations => {
 					console.log(locations);
 					if (this.data) {
+						//console.log(this.data);
 						this.sendtoserver(locations, this.data);
 					}
+
 					/* Example location returned
                   {
                     speed: -1,
@@ -53,27 +63,31 @@ export default class Camera extends Component {
 		});
 	};
 	render() {
-		return (
-			<PaperProvider>
-				<RNCamera
-					ref={ref => {
-						this.camera = ref;
-					}}
-					style={{
-						flex: 1,
-						width: '100%',
-					}}
-				>
-					<FAB
-						style={styles.fab}
-						icon="camera"
-						onPress={() => {
-							this.clickphoto();
+		if (this.state.lev == 0) {
+			return (
+				<PaperProvider>
+					<RNCamera
+						ref={ref => {
+							this.camera = ref;
 						}}
-					/>
-				</RNCamera>
-			</PaperProvider>
-		);
+						style={{
+							flex: 1,
+							width: '100%',
+						}}
+					>
+						<FAB
+							style={styles.fab}
+							icon="camera"
+							onPress={() => {
+								this.clickphoto();
+							}}
+						/>
+					</RNCamera>
+				</PaperProvider>
+			);
+		} else {
+			return <Image source={this.data}></Image>;
+		}
 	}
 }
 
