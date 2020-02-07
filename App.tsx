@@ -1,23 +1,21 @@
 import 'react-native-gesture-handler';
 
-import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Main from './components/Main';
 import Signin from './components/Signin';
 import firebase from 'react-native-firebase';
 
-const Stack = createStackNavigator();
-
 export default class App extends Component {
-	state = {isusersignedin: false};
-	
+	state = { isusersignedin: false };
+
 	constructor(props: any) {
 		super(props);
 		this.userloggedin = this.userloggedin.bind(this);
-		this.state = {isusersignedin: false};
+		this.state = { isusersignedin: false };
 
 		firebase.auth().onAuthStateChanged(user => {
 			if (user) {
@@ -39,7 +37,7 @@ export default class App extends Component {
 		console.log('me called');
 		console.log('dad');
 		console.log(this.state);
-		this.setState({loggedin: isusersignedin()});
+		this.setState({ loggedin: isusersignedin() });
 		console.log(this.state);
 	}
 	render() {
