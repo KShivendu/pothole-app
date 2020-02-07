@@ -2,28 +2,36 @@ import React, {Component} from 'react';
 import {View, Text, Alert} from 'react-native';
 import {Provider as PaperProvider, Button, TextInput} from 'react-native-paper';
 import firebase from 'react-native-firebase';
+
 export default class Signin extends Component {
 	state = {input: '', err: '', lev: 0};
-
-	constructor(props) {
+	callback:any;
+	constructor(props:any) {
 		super(props);
 		this.state = {input: '', err: '', lev: 0};
 		self = this;
+		console.log(props.callback);
+		this.callback = props.callback;
+		firebase.auth().onAuthStateChanged(user => {
+			if (user) {
+				console.log(user);
+				this.callback();
+			}
+		});
 	}
-	callback = this.props.callback;
+	
 	result = {};
-
 	login() {
 		console.log(this.state);
 		console.log(self.state);
 		if (!self.state.input) {
 			self.setState({err: 'Please Enter your phone number'});
 			return;
-        }
-        console.log('+91'+self.state.input);
+		}
+		console.log('+91' + self.state.input);
 		firebase
 			.auth()
-			.signInWithPhoneNumber('+91'+self.state.input)
+			.signInWithPhoneNumber('+91' + self.state.input)
 			.then(confirmResult => {
 				self.setState({lev: 1, input: ''});
 				self.result = confirmResult;
@@ -33,12 +41,16 @@ export default class Signin extends Component {
 			});
 	}
 	confirmotp() {
+		console.log(self.state.input);
 		self.result
 			.confirm(self.state.input)
 			.then(user => {
-				self.callback;
+				console.log(user);
+				self.callback();
 			})
-			.catch(error => {});
+			.catch(error => {
+				console.log(error);
+			});
 	}
 	render() {
 		if (this.state.lev == 0) {
