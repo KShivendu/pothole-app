@@ -16,7 +16,7 @@ export default class Camera extends Component {
 	async clickphoto() {
 		if (this.camera) {
 			this.data = await this.camera.takePictureAsync({ base64: true });
-			// console.log('base64: ', data.base64);
+			// console.log('base64: ', this.data.base64);
 			this.findCoordinates();
 			//this.props.action.sendImageToServer(data.base64);
 		}
