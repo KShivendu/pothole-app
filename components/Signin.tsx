@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {View, Text, Alert} from 'react-native';
-import {Provider as PaperProvider, Button, TextInput} from 'react-native-paper';
+import {Provider as PaperProvider, Button, TextInput, Snackbar} from 'react-native-paper';
 import firebase from 'react-native-firebase';
+import { SlideFromRightIOS } from '@react-navigation/stack/lib/typescript/src/TransitionConfigs/TransitionPresets';
 
 export default class Signin extends Component {
-	state = {input: '', err: '', lev: 0};
+	state = {input: '', err: '', lev: 0,transition:false,snckvis:false};
 	callback:any;
 	constructor(props:any) {
 		super(props);
-		this.state = {input: '', err: '', lev: 0};
+		this.state = {input: '', err: '', lev: 0,transition:false,snckvis:false};
 		self = this;
 		console.log(props.callback);
 		this.callback = props.callback;
@@ -22,10 +23,12 @@ export default class Signin extends Component {
 	
 	result = {};
 	login() {
+		self.setState({transition:true});
 		console.log(this.state);
 		console.log(self.state);
 		if (!self.state.input) {
-			self.setState({err: 'Please Enter your phone number'});
+			self.setState({err: 'Please Enter your phone number',snckvis:true});
+			self.setState({transition:false});
 			return;
 		}
 		console.log('+91' + self.state.input);
@@ -35,6 +38,7 @@ export default class Signin extends Component {
 			.then(confirmResult => {
 				self.setState({lev: 1, input: ''});
 				self.result = confirmResult;
+				self.setState({transition:false});
 			}) // save confirm result to use with the manual verification code)
 			.catch(error => {
 				self.setState({err: error});
@@ -73,11 +77,11 @@ export default class Signin extends Component {
 									this.setState({input: inp});
 								}}></TextInput>
 							<View style={{width: 150, alignSelf: 'center'}}>
-								<Button mode="contained" onPress={this.login}>
+								<Button mode="contained" onPress={this.login} loading={this.state.transition}>
 									Get Started
 								</Button>
 							</View>
-							<Text>{this.state.err}</Text>
+							<Snackbar visible={this.state.snckvis} onDismiss={()=>{this.setState({snckvis:false})}}>{this.state.err}</Snackbar>
 						</View>
 						<View style={{flex: 1}}></View>
 					</View>
