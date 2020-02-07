@@ -9,6 +9,7 @@ export default class Main extends Component {
 	constructor(props: any) {
 		super(props);
 		this.navigation = props.navigation;
+		console.log(props.user);
 	}
 
 	render() {
