@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Image, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
-import { List, TextInput, FAB } from 'react-native-paper';
+import React, {Component} from 'react';
+import {Image, View, StyleSheet, KeyboardAvoidingView} from 'react-native';
+import {List, TextInput, FAB} from 'react-native-paper';
 
 interface StateType {
 	selectedCategory: string;
@@ -17,6 +17,39 @@ export default class Camera extends Component {
 			selectedCategory: props.route.params.category,
 			landmark: '',
 		};
+	}
+
+	submitForm = () => {
+		let location: any = this.props.route.params.location;
+		let landmark = this.state.landmark;
+
+		location = location.split(', ');
+
+		fetch('http://10.3.7.86:5500/post-complaints', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				category: 'potholes',
+				latitude: location[0],
+				longitude: location[1],
+				landmark: landmark,
+				image_name : "image.png",
+				base64img : this.props.route.params.imageString
+			}),
+		})
+			.then(res => res.text())
+			.then(res => {
+				// console.log()
+				if (JSON.parse(res)["status"] === 1){
+					console.log("Successfully Added !!!");
+				}
+				else{
+					console.log("Something went wrong !!!");
+				}
+			});
 	}
 
 	setCategory(category: string) {
@@ -40,14 +73,14 @@ export default class Camera extends Component {
 					<Image
 						style={styles.image}
 						source={{
-							uri: 'data:image/png;base64,' + this.props.route.params.imageString,
+							uri:
+								'data:image/png;base64,' + this.props.route.params.imageString,
 						}}
 					/>
 					<List.Section>
 						<List.Accordion
 							title={this.state.selectedCategory}
-							left={() => <List.Icon icon="folder" />}
-						>
+							left={() => <List.Icon icon="folder" />}>
 							<List.Item
 								onPress={() => {
 									this.setCategory('Pothole');
@@ -78,7 +111,12 @@ export default class Camera extends Component {
 					/>
 				</KeyboardAvoidingView>
 
-				<FAB style={styles.fab} label="Send" icon="send" onPress={() => {}} />
+				<FAB
+					style={styles.fab}
+					label="Send"
+					icon="send"
+					onPress={this.submitForm}
+				/>
 			</>
 		);
 	}
